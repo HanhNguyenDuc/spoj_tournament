@@ -1,0 +1,17 @@
+
+<form action="compare_result" id="carform">
+<p> person 1 </p>
+<select name="user_1" form="carform">
+    {% for user in user_list %}
+        <option value="{{user.user_name}}">{{user.name}}</option>
+    {% endfor %}
+</select>
+<p> person 2 </p>
+<select name="user_2" form="carform">
+    {% for user in user_list %}
+        <option value="{{user.user_name}}">{{user.name}}</option>
+    {% endfor %}
+</select>
+<input type="submit" value="Submit">
+
+</form>

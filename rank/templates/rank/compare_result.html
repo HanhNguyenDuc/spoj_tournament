@@ -1,0 +1,7 @@
+{% if problem_list %}
+        {% for problem in problem_list %}
+            <a href="{{problem.url}}">{{problem.problem}}</a>
+        {% endfor %}
+{% else %}
+    <p> No user here </p>
+{% endif %}

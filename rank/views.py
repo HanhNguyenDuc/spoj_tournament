@@ -1,0 +1,148 @@
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
+from django.views import View
+from .utils import DataProcessor
+from .models import User, Relationship, Problem
+import functools
+
+# Create your views here.
+
+
+class RankView(View):
+    def get(self, request):
+        list_user = list(User.objects.all())
+        response_data = []
+        list_user.sort(key = DataProcessor.sort_by_solved_num, reverse=True)
+        for user in list_user:
+            # problem_list = DataProcessor.str_to_list(user.solved_list)
+            problem_list = Relationship.objects.filter(user_key=user)
+            problem_num = len(problem_list)
+
+            user_ = {}
+            user_['rank'] = user.lastrank
+            user_['user_name'] = user.name
+            user_['solved_num'] = len(problem_list)
+            template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/rank.html')
+            response_data.append(user_)
+            
+        context = {
+            'response_data' : response_data,
+        }
+        return HttpResponse(template.render(context, request))
+
+class UpdateView(View):
+    def get(self, request):
+        list_user = User.objects.all()
+        be_sorted_list = []
+        flag = False
+        # Relationship.objects.all().delete()
+        for user in list_user:
+            problem_list = DataProcessor.get_solved_problems(user.user_url)
+
+            for problem in problem_list:
+                query_res = Problem.objects.filter(name=problem)
+                # print(len(query_res))
+                if len(query_res) == 0:
+                    new_problem = Problem(name=problem, score=1)
+                    new_problem.save()
+                    print("new problem {} has been saved".format(problem))
+
+                prob = Problem.objects.filter(name=problem)[0]
+                query_res = Relationship.objects.filter(user_key=user, problem_key=prob)
+                # print(len(query_res))
+                if len(query_res) == 0:
+                    new_obj = Relationship(user_key=user, problem_key=prob)
+                    new_obj.save()
+                    print("new relationship {} has been saved".format(problem + "-" + user.name))
+                
+
+            solved_num = len(problem_list)
+            print("{}: ".format(user.user_url))
+            print(problem_list)
+            solved_str = functools.reduce(lambda a, b: "{} {}".format(a, b), problem_list)
+            
+            # DML
+            user.solved_num = solved_num
+            user.solved_list = solved_str
+            user.save()
+            be_sorted_list.append(user)
+
+        # rank update
+        be_sorted_list.sort(key = DataProcessor.sort_by_solved_num, reverse=True)
+        for key, user in enumerate(be_sorted_list):
+            user.lastrank = key + 1
+            user.save()
+        return HttpResponse(content="OK")
+
+
+class ProblemListingView(View):
+    def get(self, request):
+        user_name = request.GET['user_name']
+        response = []
+        user = User.objects.filter(user_name=user_name)[0]
+        relationship_list = Relationship.objects.filter(user_key=user)
+        for relationship in relationship_list:
+            problem = relationship.problem_key
+            # list_url.append(problem.get_url())
+            # list_problem.append(problem.name)
+        
+            content = {}
+            content['url'] = problem.get_url
+            content['problem'] = problem.name
+
+            response.append(content)
+
+        context = {
+            'response_data': response
+        }
+
+
+        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/list.html')
+
+        return HttpResponse(template.render(context, request))
+
+    def post(self, request):
+        return HttpResponse(content="OK")
+
+class CompareView(View):
+    def get(self, request):
+
+        user_list = User.objects.all()
+        response = []
+        for user in user_list:
+            response.append({'name': user.name
+                            , 'user_name': user.user_name})
+
+        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare.html')
+        context = {
+            'user_list': response
+        }
+
+        return HttpResponse(template.render(context, request))
+
+class CompareResult(View):
+    def get(self, request):
+        user_name_1 = request.GET['user_1']
+        user_name_2 = request.GET['user_2']
+
+        response = []
+
+        relationship_1 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_1)[0]))
+        relationship_2 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_2)[0]))
+
+        dif = relationship_2.difference(relationship_1)
+        for relationship in dif:
+            response.append({'problem': relationship.problem_key.name,
+                            'url': DataProcessor.convert_to_url(relationship.problem_key.name)})
+
+        context = {
+            'problem_list': response
+        }
+
+        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_result.html')
+
+        return HttpResponse(template.render(context, request))
+        
+
+        
