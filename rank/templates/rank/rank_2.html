@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% load mathfilters %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/proptit.png' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/ranking.css' %}">
+    <title>SPOJ TOURNAMENT</title>
+</head>
+<body>
+    <br>
+    <div class="rank top1">
+        <div class="kinn" style="width: 240px; height: 240px; top: 13%; left: -10.3%;">
+            <img src="{% static 'images/rank/1.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.0.username}}/">{{list_user.0.user_name}}</a></p></div>
+        <div class="info">
+            {% if list_user.0.rank == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if list_user.0.rank < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.0|mul:-1}}</p>
+            {% endif %}
+            {% if list_user.0.rank > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.0}}</p>
+            {% endif %}
+            <p>Solved: {{list_user.0.solved_num}}</p>
+            <p>Progress: {{list_user.0.progress_percentage}}%</p>
+        </div>
+        <div class="number"><p>01</p></div>
+
+    </div>
+    <!-- 2 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/2.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/2.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.0.username}}/">{{list_user.1.user_name}}</a></p></div>
+        <div class="info">
+            {% if list_user.1.rank == 1 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if list_user.1.rank < 1 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.0|mul:-1}}</p>
+            {% endif %}
+            {% if list_user.1.rank > 1 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.0}}</p>
+            {% endif %}
+            <p>Solved: {{list_user.1.solved_num}}</p>
+            <p>Progress: {{list_user.1.progress_percentage}}%</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">02</p></div>
+    </div>
+    <!-- 3 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/3.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/3.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.0.username}}/">{{list_user.2.user_name}}</a></p></div>
+        <div class="info">
+            {% if list_user.2.rank == 2 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if list_user.2.rank < 2 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.0|mul:-1}}</p>
+            {% endif %}
+            {% if list_user.2.rank > 2 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.0}}</p>
+            {% endif %}
+            <p>Solved: {{list_user.2.solved_num}}</p>
+            <p>Progress: {{list_user.2.progress_percentage}}%</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">03</p></div>
+    </div>
+    <!-- 4 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/4.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/4.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.0.username}}/">{{list_user.3.user_name}}</a></p></div>
+        <div class="info">
+            {% if list_user.3.rank == 3 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if list_user.3.rank < 3 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.0|mul:-1}}</p>
+            {% endif %}
+            {% if list_user.3.rank > 3 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.0}}</p>
+            {% endif %}
+            <p>Solved: {{list_user.3.solved_num}}</p>
+            <p>Progress: {{list_user.3.progress_percentage}}%</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">04</p></div>
+    </div>
+    <!-- 5 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/5.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/4.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.4.username}}/">{{lst_mem.4.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.4 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.4 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.4|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.4 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.4}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.4.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.4}}</p>
+            <p style="display: inline;">- Score: {{lst_score.4}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">05</p></div>
+    </div>
+    <!-- 6 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/6.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/5.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.5.username}}/">{{lst_mem.5.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.5 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.5 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.5|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.5 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.5}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.5.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.5}}</p>
+            <p style="display: inline;">- Score: {{lst_score.5}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">06</p></div>
+    </div>
+    <!-- 7 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/7.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/5.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.6.username}}/">{{lst_mem.6.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.6 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.6 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.6|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.6 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.6}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.6.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.6}}</p>
+            <p style="display: inline;">- Score: {{lst_score.6}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">07</p></div>
+    </div>
+    <!-- 8 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/8.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/5.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.7.username}}/">{{lst_mem.7.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.7 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.7 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.7|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.7 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.7}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.7.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.7}}</p>
+            <p style="display: inline;">- Score: {{lst_score.7}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">08</p></div>
+    </div>
+    <!-- 9 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/9.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/5.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.8.username}}/">{{lst_mem.8.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.8 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.8 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.8|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.8 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.8}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.8.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.8}}</p>
+            <p style="display: inline;">- Score: {{lst_score.8}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">09</p></div>
+    </div>
+    <!-- 10 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/10.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/6.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.9.username}}/">{{lst_mem.9.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.9 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.9 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.9|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.9 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.9}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.9.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.9}}</p>
+            <p style="display: inline;">- Score: {{lst_score.9}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">10</p></div>
+    </div>
+    <!-- 11 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/11.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/6.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.10.username}}/">{{lst_mem.10.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.10 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.10 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.10|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.10 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.10}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.10.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.10}}</p>
+            <p style="display: inline;">- Score: {{lst_score.10}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">11</p></div>
+    </div>
+    <!-- 12 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/12.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/6.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.11.username}}/">{{lst_mem.11.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.11 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.11 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.11|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.11 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.11}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.11.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.11}}</p>
+            <p style="display: inline;">- Score: {{lst_score.11}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">12</p></div>
+    </div>
+    <!-- 13 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/13.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/6.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.12.username}}/">{{lst_mem.12.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.12 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.12 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.12|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.12 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.12}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.12.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.12}}</p>
+            <p style="display: inline;">- Score: {{lst_score.12}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">13</p></div>
+    </div>
+    <!-- 14 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/14.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/6.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.13.username}}/">{{lst_mem.13.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.13 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.13 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.13|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.13 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.13}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.13.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.13}}</p>
+            <p style="display: inline;">- Score: {{lst_score.13}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">14</p></div>
+    </div>
+    <!-- 15 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/15.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/6.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.14.username}}/">{{lst_mem.14.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.14 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.14 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.14|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.14 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.14}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.14.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.14}}</p>
+            <p style="display: inline;">- Score: {{lst_score.14}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">15</p></div>
+    </div>
+    <!-- 16 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/16.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.15.username}}/">{{lst_mem.15.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.15 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.15 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.15|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.15 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.15}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.15.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.15}}</p>
+            <p style="display: inline;">- Score: {{lst_score.15}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">16</p></div>
+    </div>
+    <!-- 17 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/17.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.16.username}}/">{{lst_mem.16.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.16 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.16 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.16|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.16 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.16}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.16.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.16}}</p>
+            <p style="display: inline;">- Score: {{lst_score.16}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">17</p></div>
+    </div>
+    <!-- 18 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/18.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.17.username}}/">{{lst_mem.17.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.17 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.17 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.17|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.17 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.17}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.17.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.17}}</p>
+            <p style="display: inline;">- Score: {{lst_score.17}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">18</p></div>
+    </div>
+    <!-- 19 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/19.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.18.username}}/">{{lst_mem.18.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.18 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.18 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.18|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.18 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.18}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.18.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.18}}</p>
+            <p style="display: inline;">- Score: {{lst_score.18}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">19</p></div>
+    </div>
+    <!-- 20 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/20.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.19.username}}/">{{lst_mem.19.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.19 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.19 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.19|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.19 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.19}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.19.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.19}}</p>
+            <p style="display: inline;">- Score: {{lst_score.19}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">20</p></div>
+    </div>
+    <!-- 21 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/21.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.20.username}}/">{{lst_mem.20.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.20 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.20 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.20|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.20 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.20}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.20.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.20}}</p>
+            <p style="display: inline;">- Score: {{lst_score.20}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">21</p></div>
+    </div>
+    <!-- 22 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/22.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.21.username}}/">{{lst_mem.21.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.21 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.21 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.21|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.21 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.21}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.21.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.21}}</p>
+            <p style="display: inline;">- Score: {{lst_score.21}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">22</p></div>
+    </div>
+    <!-- 23 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/23.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/7.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.22.username}}/">{{lst_mem.22.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.22 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.22 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.22|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.22 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.22}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.22.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.22}}</p>
+            <p style="display: inline;">- Score: {{lst_score.22}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">23</p></div>
+    </div>
+    <!-- 24 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/24.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/8.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.23.username}}/">{{lst_mem.23.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.23 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.23 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.23|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.23 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.23}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.23.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.23}}</p>
+            <p style="display: inline;">- Score: {{lst_score.23}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">24</p></div>
+    </div>
+    <!-- 25 -->
+    <div class="rank top2" style="background-image: url({% static 'images/champ/25.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/9.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{lst_mem.24.username}}/">{{lst_mem.24.full_name}}</a></p></div>
+        <div class="info" style="top: 50%; left: 17%;">
+            {% if lst_delta_rank.24 == 0 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if lst_delta_rank.24 < 0 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{lst_delta_rank.24|mul:-1}}</p>
+            {% endif %}
+            {% if lst_delta_rank.24 > 0 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{lst_delta_rank.24}}</p>
+            {% endif %}
+            <p>Solved: {{lst_mem.24.num_solved}}</p>
+            <p style="display: inline;">Progress: {{lst_progress.24}}</p>
+            <p style="display: inline;">- Score: {{lst_score.24}}</p>
+        </div>
+        <div class="number"><p  style="font-size: 1000%;">25</p></div>
+    </div>
+</body>
+</html>
+
+<style>
+
+</style>

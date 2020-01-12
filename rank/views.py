@@ -12,9 +12,11 @@ import functools
 class RankView(View):
     def get(self, request):
         list_user = list(User.objects.all())
-        response_data = []
+        response_data = {}
         list_user.sort(key = DataProcessor.sort_by_solved_num, reverse=True)
+        iterator = -1
         for user in list_user:
+            iterator += 1
             # problem_list = DataProcessor.str_to_list(user.solved_list)
             problem_list = Relationship.objects.filter(user_key=user)
             problem_num = len(problem_list)
@@ -23,17 +25,28 @@ class RankView(View):
             user_['rank'] = user.lastrank
             user_['user_name'] = user.name
             user_['solved_num'] = len(problem_list)
-            template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/rank.html')
-            response_data.append(user_)
+            user_['progress_percentage'] = int(min(len(problem_list) / user.target, 1) * 100)
+            # print(user_)
+
+            template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/rank_2.html')
+            response_data.update({iterator: user_})
             
         context = {
-            'response_data' : response_data,
+            'list_user' : response_data,
         }
         return HttpResponse(template.render(context, request))
 
 class UpdateView(View):
     def get(self, request):
-        list_user = User.objects.all()
+        list_user = list(User.objects.all())
+        list_user.sort(key = DataProcessor.sort_by_solved_num, reverse=True)
+        iterator = -1
+
+        # Last rank update
+        for user in list_user:
+            iterator += 1
+            user.lastrank = iterator 
+            
         be_sorted_list = []
         flag = False
         # Relationship.objects.all().delete()
@@ -70,9 +83,9 @@ class UpdateView(View):
 
         # rank update
         be_sorted_list.sort(key = DataProcessor.sort_by_solved_num, reverse=True)
-        for key, user in enumerate(be_sorted_list):
-            user.lastrank = key + 1
-            user.save()
+        # for key, user in enumerate(be_sorted_list):
+        #     user.lastrank = key + 1
+        #     user.save()
         return HttpResponse(content="OK")
 
 
@@ -114,12 +127,36 @@ class CompareView(View):
             response.append({'name': user.name
                             , 'user_name': user.user_name})
 
-        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare.html')
+        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_2.html')
         context = {
+            'default_user': response[0],
             'user_list': response
         }
 
         return HttpResponse(template.render(context, request))
+    
+    def post(self, request):
+        user_name_1 = request.POST['select_1']
+        user_name_2 = request.POST['select_2']
+
+
+        user_list = User.objects.all()
+        response = []
+        for user in user_list:
+            response.append({'name': user.name
+                            , 'user_name': user.user_name})
+
+        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_2.html')
+
+        
+
+        context = {
+            'default_user': response[0],
+            'user_list': response
+        }
+
+        return HttpResponse(template.render(context, request))
+        # return HttpResponse(content="{} - {}".format(user_name_1, user_name_2))
 
 class CompareResult(View):
     def get(self, request):
@@ -127,7 +164,6 @@ class CompareResult(View):
         user_name_2 = request.GET['user_2']
 
         response = []
-
         relationship_1 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_1)[0]))
         relationship_2 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_2)[0]))
 
