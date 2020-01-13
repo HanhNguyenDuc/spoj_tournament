@@ -7,6 +7,8 @@ from .models import User, Relationship, Problem
 import functools
 
 # Create your views here.
+LOCAL_TEMP_DIR = '/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/'
+
 
 
 class RankView(View):
@@ -111,7 +113,7 @@ class ProblemListingView(View):
         }
 
 
-        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/list.html')
+        template = loader.get_template('list.html')
 
         return HttpResponse(template.render(context, request))
 
@@ -127,7 +129,7 @@ class CompareView(View):
 
         context =  self.get_content(user_name_1, user_name_2)
 
-        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_2.html')
+        template = loader.get_template('compare_2.html')
 
         return HttpResponse(template.render(context, request))
     
@@ -138,7 +140,7 @@ class CompareView(View):
 
         context =  self.get_content(user_name_1, user_name_2)
 
-        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_2.html')
+        template = loader.get_template('compare_2.html')
 
         return HttpResponse(template.render(context, request))
 
@@ -199,7 +201,7 @@ class CompareResult(View):
             'problem_list': response
         }
 
-        template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_result.html')
+        template = loader.get_template('compare_result.html')
 
         return HttpResponse(template.render(context, request))
         
