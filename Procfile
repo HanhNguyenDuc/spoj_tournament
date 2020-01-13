@@ -1,1 +1,1 @@
-web: python manage.py runserver spoj-tour.herokuapp.com:80
+web: gunicorn spoj-tour.wsgi --log-file -
