@@ -1,1 +1,1 @@
-web: gunicorn spoj --log-file -
+web: gunicorn spoj.wsgi --log-file -
