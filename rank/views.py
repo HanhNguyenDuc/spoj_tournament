@@ -116,7 +116,7 @@ class ProblemListingView(View):
         }
 
 
-        template_ = loader.get_template('list.html')
+        template_ = loader.get_template('rank/list.html')
 
         return HttpResponse(template_.render(context, request))
 
@@ -132,7 +132,7 @@ class CompareView(View):
 
         context =  self.get_content(user_name_1, user_name_2)
 
-        template_ = loader.get_template('compare_2.html')
+        template_ = loader.get_template('rank/compare_2.html')
 
         return HttpResponse(template_.render(context, request))
     
@@ -143,7 +143,7 @@ class CompareView(View):
 
         context =  self.get_content(user_name_1, user_name_2)
 
-        template_ = loader.get_template('compare_2.html')
+        template_ = loader.get_template('rank/compare_2.html')
 
         return HttpResponse(template_.render(context, request))
 
@@ -204,7 +204,7 @@ class CompareResult(View):
             'problem_list': response
         }
 
-        template_ = loader.get_template('compare_result.html')
+        template_ = loader.get_template('rank/compare_result.html')
 
         return HttpResponse(template_.render(context, request))
         
