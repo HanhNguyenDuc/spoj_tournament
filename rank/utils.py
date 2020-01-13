@@ -15,7 +15,9 @@ class DataProcessor:
         return False
 
 
-        
+
+
+
     @staticmethod
     def get_solved_problems(url):
         page = requests.get(url)
