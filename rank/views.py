@@ -122,41 +122,64 @@ class CompareView(View):
     def get(self, request):
 
         user_list = User.objects.all()
-        response = []
-        for user in user_list:
-            response.append({'name': user.name
-                            , 'user_name': user.user_name})
+        user_name_1 = user_list[0].user_name
+        user_name_2 = user_list[1].user_name
+
+        context =  self.get_content(user_name_1, user_name_2)
 
         template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_2.html')
-        context = {
-            'default_user': response[0],
-            'user_list': response
-        }
 
         return HttpResponse(template.render(context, request))
     
     def post(self, request):
+        user_list = User.objects.all()
         user_name_1 = request.POST['select_1']
         user_name_2 = request.POST['select_2']
 
-
-        user_list = User.objects.all()
-        response = []
-        for user in user_list:
-            response.append({'name': user.name
-                            , 'user_name': user.user_name})
+        context =  self.get_content(user_name_1, user_name_2)
 
         template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/compare_2.html')
 
+        return HttpResponse(template.render(context, request))
+
+    def get_content(self, user_name_1, user_name_2):
+        user_list = User.objects.all()
+
+        user_1 = User.objects.filter(user_name=user_name_1)[0]
+        user_2 = User.objects.filter(user_name=user_name_2)[0]
+
+        relationship_1 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_1)[0]))
+        relationship_2 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_2)[0]))
+
+        dif_2_1 = relationship_2.difference(relationship_1)
+        dif_1_2 = relationship_1.difference(relationship_2)
         
+        dif_pro_1_2 = []
+        for relationship in dif_1_2:
+            pro = relationship.problem_key
+            dif_pro_1_2.append({'problem': pro.name, 'url': pro.get_url()})
+
+        dif_pro_2_1 = []
+        for relationship in dif_2_1:
+            pro = relationship.problem_key
+            dif_pro_2_1.append({'problem': pro.name, 'url': pro.get_url()})
+
+
+        user_list_context = []
+        for user in user_list:
+            user_list_context.append({'name': user.name
+                            , 'user_name': user.user_name})
 
         context = {
-            'default_user': response[0],
-            'user_list': response
+            'user_list_context': user_list_context,
+            'user_1': {'name': user_1.name, 'user_name': user_1.user_name, 'solved_num': user_1.solved_num},
+            'user_2': {'name': user_2.name, 'user_name': user_2.user_name, 'solved_num': user_2.solved_num},
+            'dif_pro_1_2_list': dif_pro_1_2,
+            'dif_pro_2_1_list': dif_pro_2_1
         }
 
-        return HttpResponse(template.render(context, request))
-        # return HttpResponse(content="{} - {}".format(user_name_1, user_name_2))
+        return context
+        
 
 class CompareResult(View):
     def get(self, request):
