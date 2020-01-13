@@ -6,3 +6,4 @@ pytz==2017.3
 whitenoise==3.3.1
 django-mathfilters
 requests
+lxml
