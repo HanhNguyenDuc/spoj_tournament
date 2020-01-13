@@ -14,7 +14,7 @@ import os
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-PROJECT_ROOT   =   os.path.join(os.getcwd())
+PROJECT_ROOT   =   os.path.join(os.getcwd(), 'rank')
 STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
