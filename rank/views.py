@@ -30,13 +30,13 @@ class RankView(View):
             user_['progress_percentage'] = int(min(len(problem_list) / user.target, 1) * 100)
             # print(user_)
 
-            template = loader.get_template('rank_2.html')
+            template_ = loader.get_template('rank_2.html')
             response_data.update({iterator: user_})
             
         context = {
             'list_user' : response_data,
         }
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template_.render(context, request))
 
 class UpdateView(View):
     def get(self, request):
