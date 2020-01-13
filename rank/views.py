@@ -33,7 +33,7 @@ class RankView(View):
             
             response_data.update({iterator: user_})
         
-        template_ = loader.get_template('rank_2.html')
+        template_ = loader.get_template('rank/rank_2.html')
         print(template_)
 
         context = {
