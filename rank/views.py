@@ -30,7 +30,7 @@ class RankView(View):
             user_['progress_percentage'] = int(min(len(problem_list) / user.target, 1) * 100)
             # print(user_)
 
-            template = loader.get_template('/home/hanhnd/workspace/spoj-tour-web/spoj/rank/templates/rank/rank_2.html')
+            template = loader.get_template('rank_2.html')
             response_data.update({iterator: user_})
             
         context = {
