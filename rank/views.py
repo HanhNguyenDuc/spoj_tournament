@@ -31,6 +31,7 @@ class RankView(View):
             # print(user_)
 
             template_ = loader.get_template('rank_2.html')
+            print(template_)
             response_data.update({iterator: user_})
             
         context = {
