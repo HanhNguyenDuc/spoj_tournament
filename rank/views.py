@@ -30,10 +30,12 @@ class RankView(View):
             user_['progress_percentage'] = int(min(len(problem_list) / user.target, 1) * 100)
             # print(user_)
 
-            template_ = loader.get_template('rank_2.html')
-            print(template_)
-            response_data.update({iterator: user_})
             
+            response_data.update({iterator: user_})
+        
+        template_ = loader.get_template('rank_2.html')
+        print(template_)
+
         context = {
             'list_user' : response_data,
         }
