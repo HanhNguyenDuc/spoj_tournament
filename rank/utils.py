@@ -1,6 +1,6 @@
 import requests 
 import lxml.html as lh
-import pandas as pd
+# import pandas as pd
 url = "https://www.spoj.com/PTIT/users/duchanhctn99/"
 
 class DataProcessor:
