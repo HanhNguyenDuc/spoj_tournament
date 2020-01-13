@@ -1,1 +1,1 @@
-web: python manage.py runserver spoj-tour.herokuapp.com/:8000
+web: python manage.py runserver spoj-tour.herokuapp.com:80
