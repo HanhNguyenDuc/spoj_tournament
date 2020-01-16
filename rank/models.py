@@ -33,6 +33,9 @@ class Relationship(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.user_key, self.problem_key)
+
+    def __eq__(self, param_2):
+        return self.problem_key == param_2.problem_key
     
 
     

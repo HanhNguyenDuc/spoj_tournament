@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/ranking.css' %}">
     <title>SPOJ Tournament</title>
 </head>     
 
@@ -17,30 +18,30 @@
     <div class="container-fluid" style="min-height: 92%">
         <div class="row">
             <div class="col-sm-2">
-                <center><img src="{% static 'images/proptit.png' %}" class="responsive-img" style="max-height: 130px" alt="PROPTIT avatar"></center>
+                {% comment %} <center><img src="{% static 'images/proptit.png' %}" class="responsive-img" style="max-height: 130px" alt="PROPTIT avatar"></center> {% endcomment %}
             </div>
             <div class="col-sm-9">
-                <center><h1>SPOJ Tournament</h1></center>
+                <center><h1 style = "color: #ffffff">SPOJ Tournament</h1></center>
             </div>
         </div> 
         <br>
         <div class="row">
-            <dir class="col-md-2">
+            <ul class="col-md-2">
                 <div class="bs-sliderbar">
                     <ul class="nav flex-column">
-                        <a href="rank/">Bảng Xếp Hạng</a>
+                        <a style="color: gray" href="/">Rank</a>
                         <br>
                         <br>
-                        <a href="statistics/">Thống Kê</a>
+                        <a style="color: gray" href="list">Problems</a>
                         <br>
                         <br>
-                        <b style="color: dodgerblue">Công Cụ So Sánh</b>
+                        <b style="color: gray">Comparing Tool</b>
                     </ul>
                 </div>
-            </dir>
+            </ul>
             <form action="" method="POST">
 
-                <div class="row">
+                <!-- <div class="row">
                     {% comment %} <div class = "custom-select" style="width:200px;"> {% endcomment %}
                         <div class = "col-md-4">
                             <select name="select_type">
@@ -48,12 +49,13 @@
                                 <option value="get_url">So sánh ngoài</option>
                             </select>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
+                
                 {% csrf_token %}
                 <div class = "row">
                     <div class="col-md-4">
                         <center>
+                            
                             <div class="custom-select" style="width:200px;">
                                 <select name="select_1">
                                         <option value="{{user_1.user_name}}">{{user_1.name}}</option>
@@ -67,7 +69,7 @@
                         </center>
                     </div>
                     <div class="col-md-1">
-                        <center><button type="submit" class="btn btn-info" enctype="multipart/form-data">So sánh</button></center>
+                        <center><button type="submit" class="btn btn-info" enctype="multipart/form-data">COMPARE</button></center>
                     </div>
                     <div class="col-md-4">
                         <center>
@@ -99,12 +101,12 @@
                             </tr>
                             <tr><h5 style="color: coral">Solved {{user_1.solved_num}}</h5></tr>
                             <tr>
-                                <h5 style="color: coral">{{user_1.name}} đã giải nhưng {{user_2.name}} chưa giải: 100</h5>
+                                <h5 style="color: coral">{{user_1.name}} has solved but {{user_2.name}} hasn't: {{dif_pro_1_2_list|length}}</h5>
                             </tr>
                             {% for row in dif_pro_1_2_list%}
                                 <tr>
                                     <td>{{loop.index}}</td>
-                                    <td><a href="{{row.url}}">{{row.problem}}</a></td>
+                                    <td><a style="color: #99ff33; font-weight: bold" href="{{row.url}}">{{row.problem}}</a></td>
                                 </tr>
                             {% endfor %}
                         </table>
@@ -120,12 +122,12 @@
                             </tr>
                             <tr><h5 style="color: coral">Solved {{user_2.solved_num}}</h5></tr>
                             <tr>
-                                <h5 style="color: coral">{{user_2.name}} đã giải nhưng {{user_1.name}} chưa giải: 100</h5>
+                                <h5 style="color: coral">{{user_2.name}} has solved but {{user_1.name}} hasn't: {{dif_pro_2_1_list|length}}</h5>
                             </tr>
                             {% for row in dif_pro_2_1_list%}
                                 <tr>
                                     <td>{{loop.index}}</td>
-                                    <td><a href="{{row.url}}">{{row.problem}}</a></td>
+                                    <td><a style="color: #99ff33; font-weight: bold" href="{{row.url}}">{{row.problem}}</a></td>
                                 </tr>
                             {% endfor %}
                         </table>

@@ -28,6 +28,7 @@ class RankView(View):
             user_['user_name'] = user.name
             user_['solved_num'] = len(problem_list)
             user_['progress_percentage'] = int(min(len(problem_list) / user.target, 1) * 100)
+            user_['name'] = user.user_name
             # print(user_)
 
             
@@ -95,24 +96,52 @@ class UpdateView(View):
 
 
 class ProblemListingView(View):
+
+    def sort_by_name(self, a):
+        return a['problem']
+
+    def sort_by_solved_num(self, a):
+        return a['solved_num']
+
+
     def get(self, request):
-        user_name = request.GET['user_name']
+        # user_name = request.GET['user_name']
         response = []
-        user = User.objects.filter(user_name=user_name)[0]
-        relationship_list = Relationship.objects.filter(user_key=user)
-        for relationship in relationship_list:
-            problem = relationship.problem_key
+        sort_method = "name"
+        # user = User.objects.filter(user_name=user_name)[0]
+        problem_list = list(Problem.objects.all())
+        user_list = list(User.objects.all())
+        user_list_context = []
+
+        for user in user_list:
+            user_list_context.append({'user_name': user.user_name, 'name': user.name})
+
+
+        # relationship_list = Relationship.objects.filter(user_key=user)
+        for problem in problem_list:
+            # problem = relationship.problem_key
             # list_url.append(problem.get_url())
             # list_problem.append(problem.name)
         
             content = {}
             content['url'] = problem.get_url
             content['problem'] = problem.name
+            content['solved_num'] =  len(Relationship.objects.filter(problem_key = problem))
 
             response.append(content)
 
+        if (sort_method == "name"):
+            response.sort(key=self.sort_by_name)
+        elif sort_method == "name-reversed":
+            response.sort(key=self.sort_by_name, reverse = True)
+        elif sort_method == "solved-num":
+            response.sort(key=self.sort_by_solved_num)
+        elif sort_method == "solved-num-reversed":
+            response.sort(key=self.sort_by_solved_num, reverse = True)
+
         context = {
-            'response_data': response
+            'user_list_context': user_list_context,
+            'problem_list': response
         }
 
 
@@ -121,7 +150,60 @@ class ProblemListingView(View):
         return HttpResponse(template_.render(context, request))
 
     def post(self, request):
-        return HttpResponse(content="OK")
+        # user_name = request.GET['user_name']
+        response = []
+        sort_method = request.POST['sort-method']
+        user_text = request.POST['user']
+
+        # user = User.objects.filter(user_name=user_name)[0]
+        problem_list = list(Problem.objects.all())
+        user_list = list(User.objects.all())
+        user_list_context = []
+
+        for user in user_list:
+            user_list_context.append({'user_name': user.user_name, 'name': user.name})
+        
+        if user_text != "all":
+
+            user = User.objects.filter(user_name=user_text)[0]
+            private_list = set(map(lambda a: a.problem_key, Relationship.objects.filter(user_key=user)))
+            problem_list = set(problem_list)
+            problem_list = list(problem_list.difference(private_list))
+
+
+        # relationship_list = Relationship.objects.filter(user_key=user)
+        for problem in problem_list:
+            # problem = relationship.problem_key
+            # list_url.append(problem.get_url())
+            # list_problem.append(problem.name)
+        
+            content = {}
+            content['url'] = problem.get_url
+            content['problem'] = problem.name
+            content['solved_num'] =  len(Relationship.objects.filter(problem_key = problem))
+
+
+
+            response.append(content)
+
+        if (sort_method == "name"):
+            response.sort(key=self.sort_by_name)
+        elif sort_method == "name-reversed":
+            response.sort(key=self.sort_by_name, reverse = True)
+        elif sort_method == "solved-num":
+            response.sort(key=self.sort_by_solved_num)
+        elif sort_method == "solved-num-reversed":
+            response.sort(key=self.sort_by_solved_num, reverse = True)
+
+        context = {
+            'user_list_context': user_list_context,
+            'problem_list': response
+        }
+
+
+        template_ = loader.get_template('rank/list.html')
+
+        return HttpResponse(template_.render(context, request))
 
 class CompareView(View):
     def get(self, request):
@@ -147,26 +229,29 @@ class CompareView(View):
 
         return HttpResponse(template_.render(context, request))
 
+    def get_pro(self, relationship):
+        return relationship.problem_key
+
     def get_content(self, user_name_1, user_name_2):
         user_list = User.objects.all()
 
         user_1 = User.objects.filter(user_name=user_name_1)[0]
         user_2 = User.objects.filter(user_name=user_name_2)[0]
 
-        relationship_1 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_1)[0]))
-        relationship_2 = set(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_2)[0]))
+        relationship_1 = set(map(self.get_pro, list(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_1)[0]))))
+        relationship_2 = set(map(self.get_pro, list(Relationship.objects.filter(user_key=User.objects.filter(user_name=user_name_2)[0]))))
 
         dif_2_1 = relationship_2.difference(relationship_1)
         dif_1_2 = relationship_1.difference(relationship_2)
         
         dif_pro_1_2 = []
         for relationship in dif_1_2:
-            pro = relationship.problem_key
+            pro = relationship
             dif_pro_1_2.append({'problem': pro.name, 'url': pro.get_url()})
 
         dif_pro_2_1 = []
         for relationship in dif_2_1:
-            pro = relationship.problem_key
+            pro = relationship
             dif_pro_2_1.append({'problem': pro.name, 'url': pro.get_url()})
 
 
