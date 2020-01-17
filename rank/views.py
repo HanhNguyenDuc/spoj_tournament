@@ -21,7 +21,6 @@ class RankView(View):
             iterator += 1
             # problem_list = DataProcessor.str_to_list(user.solved_list)
             problem_list = Relationship.objects.filter(user_key=user)
-            problem_num = len(problem_list)
 
             user_ = {}
             user_['rank'] = user.lastrank
@@ -54,7 +53,6 @@ class UpdateView(View):
             user.lastrank = iterator 
             
         be_sorted_list = []
-        flag = False
         # Relationship.objects.all().delete()
         for user in list_user:
             problem_list = DataProcessor.get_solved_problems(user.user_url)
@@ -79,7 +77,8 @@ class UpdateView(View):
             solved_num = len(problem_list)
             print("{}: ".format(user.user_url))
             print(problem_list)
-            solved_str = functools.reduce(lambda a, b: "{} {}".format(a, b), problem_list)
+            if len(problem_list) != 0:
+                solved_str = functools.reduce(lambda a, b: "{} {}".format(a, b), problem_list)
             
             # DML
             user.solved_num = solved_num
@@ -219,7 +218,6 @@ class CompareView(View):
         return HttpResponse(template_.render(context, request))
     
     def post(self, request):
-        user_list = User.objects.all()
         user_name_1 = request.POST['select_1']
         user_name_2 = request.POST['select_2']
 
