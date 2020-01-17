@@ -294,7 +294,7 @@ class CompareResult(View):
 
 class ResetRank(View):
     def get(self, request):
-        user_list = User.objects.all()
+        user_list = list(User.objects.all())
         user_list.sort(key=DataProcessor.sort_by_solved_num, reversed=True)
         iterator = -1
         for user in user_list:
