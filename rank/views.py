@@ -292,4 +292,20 @@ class CompareResult(View):
         return HttpResponse(template_.render(context, request))
         
 
+class ResetRank(View):
+    def get(self, request):
+        user_list = User.objects.all()
+        user_list.sort(key=DataProcessor.sort_by_solved_num, reversed=True)
+        iterator = -1
+        for user in user_list:
+            iterator += 1
+            user.lastrank = iterator
+            user.save()
         
+        return HttpResponse(content="OK")
+
+class ResetRelationship(View):
+    def get(self, request):
+        log = Relationship.objects.all().delete()
+
+        return HttpResponse(content="Deleted all {}".format(log))
