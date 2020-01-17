@@ -572,6 +572,26 @@
         </div>
         <div class="number"><p>26</p></div>
     </div>
+    <div class="rank top2" style="background-image: url({% static 'images/champ/25.jpg' %});">
+        <div class="kinn">
+            <img src="{% static 'images/rank/9.png' %}" alt="=))">
+        </div>
+        <div class="name"><p><a href="https://www.spoj.com/PTIT/users/{{list_user.26.name}}/">{{list_user.26.user_name}}</a></p></div>
+        <div class="info">
+            {% if list_user.26.rank == 26 %}
+                <i class="right-border" style="color: green;"></i><p style="display: inline;">-</p>
+            {% endif %}
+            {% if list_user.26.rank < 26 %}
+                <i class="fa fa-arrow-down" style="color: red;"></i><p style="display: inline;">{{list_user.26.rank|mul:-1}}</p>
+            {% endif %}
+            {% if list_user.26.rank > 26 %}
+                <i class="fa fa-arrow-up" style="color: green;"></i><p style="display: inline;">{{list_user.26.rank}}</p>
+            {% endif %}
+            <p>Solved: {{list_user.26.solved_num}}</p>
+            <p>Progress: {{list_user.26.progress_percentage}}%</p>
+        </div>
+        <div class="number"><p>27</p></div>
+    </div>
 </body>
 </html>
 
